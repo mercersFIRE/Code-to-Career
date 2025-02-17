@@ -3,108 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codeforces Job Status Prediction</title>
+    <title>Codeforces Job Prediction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
             text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
         }
-
-        h1 {
-            color: #4CAF50;
-            font-size: 24px;
-            margin-bottom: 20px;
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        input[type="text"] {
-            width: 100%;
+        input {
             padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
+            width: 80%;
             margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
         }
-
         .result {
             margin-top: 20px;
+            padding: 10px;
             font-size: 18px;
             font-weight: bold;
-            color: #333;
         }
-
-        .error {
+        .status-0 {
             color: red;
-            font-size: 16px;
         }
-
+        .status-1 {
+            color: orange;
+        }
+        .status-2 {
+            color: green;
+        }
+        .status-3 {
+            color: blue;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Codeforces Job Prediction</h2>
+        <form action="/predict" method="post">
+            <input type="text" name="username" placeholder="Enter Codeforces Username" required>
+            <button type="submit">Predict</button>
+        </form>
 
-<div class="container">
-    <h1>Codeforces Job Status Prediction</h1>
-    <form action="/predict" method="POST">
-        <div class="form-group">
-            <label for="username">Enter Codeforces Username:</label>
-            <input type="text" id="username" name="username" placeholder="e.g., tourist" required>
-        </div>
-        <button type="submit">Predict Job Status</button>
-    </form>
-
-    {% if result %}
-        <div class="result">
-            <h2>Predicted Job Status:</h2>
-            <p>{{ result }}</p>
-        </div>
-    {% else %}
-        {% if request.method == 'POST' %}
-            <div class="error">Please provide a valid username.</div>
+        {% if result is not none %}
+            <div class="result {% if result == 0 %}status-0{% elif result == 1 %}status-1{% elif result == 2 %}status-2{% elif result == 3 %}status-3{% endif %}">
+                {% if result == 0 %}
+                    Keep pushing! With a bit more consistent practice, you’ll be on the right track. 💪
+                {% elif result == 1 %}
+                    You're on your way! Keep improving, and you’ll soon land a job as a software engineer in Bangladesh. 🚀
+                {% elif result == 2 %}
+                    ✅ Awesome work! You have what it takes to secure a high-paying job in Bangladesh. Keep it up! 🎯
+                {% elif result == 3 %}
+                    🚀 Incredible! Your skills are at a level where you can crack jobs at top tech companies. Keep shining! 🌟
+                {% endif %}
+            </div>
         {% endif %}
-    {% endif %}
-</div>
 
+        {% if error %}
+            <div class="result status-0">{{ error }}</div>
+        {% endif %}
+    </div>
 </body>
 </html>
