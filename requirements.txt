@@ -1,6 +1,7 @@
-Flask
-requests
-pandas
+Flask==3.1.0
+requests==2.32.3
+pandas==2.2.3
 scikit-learn==1.2.2
-joblib
-gunicorn
+joblib==1.4.2
+gunicorn==23.0.0
+numpy==1.23.3
