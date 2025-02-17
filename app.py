@@ -98,7 +98,7 @@ def calculate_engagement_metrics(rating_data):
     if rating_data:
         first_contest = rating_data[0]["ratingUpdateTimeSeconds"]
         last_contest = rating_data[-1]["ratingUpdateTimeSeconds"]
-        engagement = len(rating_data) / ((last_contest - first_contest) / (60 * 60 * 24 * 30))
+        engagement = len(rating_data) / ((last_contest - first_contest+1) / (60 * 60 * 24 * 30))
     else:
         engagement = 0
     return engagement
@@ -109,7 +109,10 @@ def calculate_submission_metrics(status_data):
     
     first_submission = status_data[-1]["creationTimeSeconds"]
     last_submission = status_data[0]["creationTimeSeconds"]
-    days_active = (last_submission - first_submission) / (60 * 60 * 24)
+    days_active = (last_submission - first_submission+1) / (60 * 60 * 24)
+    
+
+
 
     total_submissions = len(status_data)
     accepted_submissions = sum(1 for entry in status_data if entry.get("verdict") == "OK")
