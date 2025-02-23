@@ -122,6 +122,7 @@ def calculate_submission_metrics(status_data):
     return avg_submissions_per_day, acceptance_ratio
 
 def get_user_data(handle):
+    
     rating_data = fetch_user_rating(handle)
     status_data = fetch_user_status(handle)
     
@@ -170,7 +171,7 @@ def get_user_data(handle):
 
 # Predict job status
 def predict_job_status(handle):
-    user_data = get_user_data(handle)
+    user_data = handle;
     
     user_df = pd.DataFrame([user_data])
     
@@ -193,8 +194,17 @@ def predict():
     username = request.form.get('username')
     
     if username:
-        result = predict_job_status(username)
-        return render_template('index.html', result=result)
+        
+        try:
+            userdata = get_user_data(username)
+        except Exception as e:
+            return render_template('index.html', error=f"User {username} not found on Codeforces")
+        result = predict_job_status(userdata)
+        best_rating = userdata.get("Best Rating", "N/A")
+        best_rank = userdata.get("Best Rank", "N/A")
+        contests_participated = userdata.get("Contests Participated", "N/A")
+        problems_solved = userdata.get("Problems Solved", "N/A")
+        return render_template('index.html', result=result, username=username, best_rating=best_rating, best_rank=best_rank, contests_participated=contests_participated, problems_solved=problems_solved)
     else:
         return render_template('index.html', error="Please provide a Codeforces username")
 

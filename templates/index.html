@@ -153,19 +153,36 @@
                 <span class="material-icons">search</span> Predict
             </button>
         </form>
-
+        <p style="margin-top: 20px; font-size: 18px; color: #e6e6e6;">
+            <strong>Username:</strong> {{ username }}
+        </p>
+        <p style="font-size: 16px; color: #f4a300;">
+            <strong>Problems Solved:</strong> {{ problems_solved }}
+        </p>
+        <p style="font-size: 16px; color: #f4a300;">
+            <strong>Best Rating:</strong> {{ best_rating }}
+        </p>
+        <p style="font-size: 16px; color: #f4a300;">
+            <strong>Best Rank:</strong> {{ best_rank }}
+        </p>
+        <p style="font-size: 16px; color: #f4a300;">
+            <strong>Contests Participated:</strong> {{ contests_participated }}
+        </p>
+        
+        
         {% if result is not none %}
             <div class="result {% if result == 0 %}status-0{% elif result == 1 %}status-1{% elif result == 2 %}status-2{% elif result == 3 %}status-3{% endif %}">
                 <p><strong>Prediction: {{ result }}</strong></p>
                 {% if result == 0 %}
-                    ❌ (0) Keep pushing! With a bit more consistent practice, you’ll be on the right track. 💪
+                    ❌ (0) Keep practicing! Consistency will get you there. 💪
                 {% elif result == 1 %}
-                    ⚠️ (1) You're on your way! Keep improving, and you’ll soon land a job as a software engineer in Bangladesh. 🚀
+                    ⚠️ (1) You're on the right path towards landing a job in BD! Keep improving. 🚀
                 {% elif result == 2 %}
-                    ✅ (2) Awesome work! You have what it takes to secure a high-paying job in Bangladesh. Keep it up! 🎯
+                    ✅ (2) Great job! You’re ready for a high-paying role in BD! 🎯
                 {% elif result == 3 %}
-                    🚀 (3) Incredible! Your skills are at a level where you can crack jobs at top tech companies. Keep shining! 🌟
+                    🚀 (3) Amazing! You're set for top tech companies! 🌟
                 {% endif %}
+
             </div>
         {% endif %}
 
